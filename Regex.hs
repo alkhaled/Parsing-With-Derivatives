@@ -4,7 +4,7 @@ data Regex  =
 	| Null              -- The empty set, nothing can match this
 	| Atom Char	    -- A single Symbol in the language
 	| Seq Regex Regex   -- (a)(b)
-	| Alt Regex Regex	-- a|b
+	| Alt Regex Regex   -- a|b
 	| Star Regex	    -- Kleene Star (a)*
 	deriving (Eq, Show)
 
@@ -35,7 +35,6 @@ buildStar Null  = Empty
 buildStar Empty = Empty
 buildStar pat   = (Star pat)
 
---match :: Regex -> [String] -> Bool
 match regex string = case string of 
 			[] -> regex
 			otherwise -> match (deriv regex (head string)) (tail string)
